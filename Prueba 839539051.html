@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Te Amo Hacker Style</title>
+
+  <!-- Fuentes elegantes -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Intro inicial */
+    .intro {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: #00ff88;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      z-index: 100;
+      font-family: 'Quicksand', sans-serif;
+      animation: desvanecer 4s forwards;
+    }
+
+    @keyframes desvanecer {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    /* Partículas explosivas */
+    .particula {
+      position: absolute;
+      font-size: 3em;
+      color: #ff4da6;
+      pointer-events: none;
+      animation: estallar 1s ease-out forwards;
+      white-space: nowrap;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    @keyframes estallar {
+      to {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+      }
+    }
+
+    /* Lluvia hacker de "Te amo" */
+    .lluvia-linea {
+      position: absolute;
+      top: -100px;
+      color: #00ff88;
+      opacity: 0.15;
+      font-size: 1.2em;
+      white-space: pre;
+      animation: caer linear infinite;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    @keyframes caer {
+      0% {
+        transform: translateY(0);
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mensaje de entrada -->
+  <div class="intro">Mi amor por ti se expresa diferente</div>
+
+  <script>
+    // Explosión de "Te amo" al hacer clic
+    function explotar(x, y) {
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particula');
+        p.textContent = 'Te amo';
+        document.body.appendChild(p);
+        const deltaX = (Math.random() - 0.5) * 300;
+        const deltaY = (Math.random() - 0.5) * 300;
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--x', `${deltaX}px`);
+        p.style.setProperty('--y', `${deltaY}px`);
+        setTimeout(() => p.remove(), 1000);
+      }
+    }
+
+    document.body.addEventListener('click', e => {
+      explotar(e.clientX, e.clientY);
+    });
+
+    // Lluvia tipo hacker
+    const caracteres = ['Te amo', '🤍', 'Amor de mi Vida'];
+    function lluviaCodigo() {
+      const columna = document.createElement('div');
+      columna.classList.add('lluvia-linea');
+
+      const largo = Math.floor(5 + Math.random() * 10);
+      let contenido = '';
+      for (let i = 0; i < largo; i++) {
+        const texto = caracteres[Math.floor(Math.random() * caracteres.length)];
+        contenido += texto + '\n';
+      }
+
+      columna.textContent = contenido;
+      columna.style.left = `${Math.random() * window.innerWidth}px`;
+      columna.style.animationDuration = `${3 + Math.random() * 5}s`;
+      columna.style.fontSize = `${0.8 + Math.random()}em`;
+
+      document.body.appendChild(columna);
+      setTimeout(() => columna.remove(), 8000);
+    }
+
+    setInterval(lluviaCodigo, 100);
+  </script>
+</body>
+</html>
